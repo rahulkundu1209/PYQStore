@@ -4,7 +4,11 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        'inner-custom': 'inset 0 4px 6px rgba(0, 0, 0, 0.1)',
+      },
+    },
   },
   plugins: [],
 }
