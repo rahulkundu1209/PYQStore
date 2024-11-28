@@ -79,7 +79,7 @@ const AuthForm = () => {
         {showSignIn === true ? <SignInForm /> : <SignUpForm />}
       </div>
       <div>
-        <button class="w-full flex flex-row justify-evenly p-2 rounded-lg border-2 border-[#EAE7DC]">
+        <button class="w-full flex flex-row justify-evenly p-2 rounded-lg border-2 border-[#8E8D8A]">
           <p>Continue with Google</p>
           <img src={googleLogo} alt='Google logo' width="30px" height="auto" />
         </button>

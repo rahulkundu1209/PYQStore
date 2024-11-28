@@ -20,7 +20,7 @@ const WelcomeSection = () => {
         The more you sweat in practice, <br /> 
         <span>the less you bleed in battle.</span>
       </p>
-      <img src={welcomeGraphic} height="auto" width="400px" />
+      <img src={welcomeGraphic} alt="boy-reading" height="auto" width="400px" />
     </div>
   )
 }
