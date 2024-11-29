@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavbarBackground from './NavbarBackground';
 import logo from '../assets/logo.png';
 import coin from '../assets/coin.png';
 import userIcon from '../assets/user.png';
+import UserFunctionsList from './UserFunctionsList';
 
 const NavBar = () => {
   const signedIn = true;
+  const [showList, setShowList] = useState(false);
 
   return (
     <>
@@ -32,8 +34,11 @@ const NavBar = () => {
                 <img src={coin} alt='coin' width="20px" height="20px" />
                 <h3 class="ml-2 font-bold text-xl">8</h3>
               </div>
-              <div>
-                <img src={userIcon} alt='user-image' width="40px" height="40px"  />
+              <div 
+                onClick={()=>{setShowList(!showList)}}
+              >
+                <img class="hover:cursor-pointer" src={userIcon} alt='user-image' width="40px" height="40px"  />
+                {showList && <UserFunctionsList/>}
               </div>
             </div>
             : <button

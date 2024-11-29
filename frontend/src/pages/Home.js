@@ -1,9 +1,10 @@
 import React from 'react'
 import HeroSection from '../components/HeroSection';
 import AuthSection from '../components/AuthSection';
+import AllCourses from '../components/AllCourses';
 
 const Home = () => {
-  const signedIn = true;
+  const signedIn = false;
   return (
     <div 
       class="items-center justify-center flex flex-col"
@@ -12,7 +13,7 @@ const Home = () => {
         {signedIn === true ? <HeroSection/> : <AuthSection/>}
       </div>
       <div>
-        All courses will go here
+        <AllCourses/>
       </div>
     </div>
   )

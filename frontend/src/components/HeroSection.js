@@ -25,7 +25,7 @@ const HeroSection = () => {
         *:py-8
         ">
         <button
-          className="relative group text-white shadow-lg hover:shadow-2xl overflow-hidden rounded-lg">
+          className="relative group text-white shadow-lg hover:shadow-2xl overflow-hidden rounded-lg hover:scale-105">
           <span className="flex flex-col items-center relative z-10 transition-colors duration-500 group-hover:text-gray-100">
             <img src={downloadIcon} alt="download-icon" className="h-16 w-16" />
             <p className="mt-2 font-medium">Download <br /> Question Paper</p>
@@ -35,7 +35,7 @@ const HeroSection = () => {
           </div>
         </button>
         <button
-          className="relative group text-white shadow-lg hover:shadow-2xl overflow-hidden rounded-lg">
+          className="relative group text-white shadow-lg hover:shadow-2xl overflow-hidden rounded-lg hover:scale-105">
           <span className="flex flex-col items-center relative z-10 transition-colors duration-500 group-hover:text-gray-100">
             <img src={uploadIcon} alt="upload-icon" className="h-16 w-16" />
             <p className="mt-2 font-medium">Upload <br /> Question Paper</p>
