@@ -1,10 +1,30 @@
 import React, { useState } from 'react'
 import googleLogo from '../assets/google-logo.png'
+import app from '../firebase/firebase.js'
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();  
 
 const AuthForm = () => {
   const [showSignIn, setShowSignIn] = useState(true);
 
   const SignUpForm = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [error, setError] = useState("");
+
+    const createUser = (e) => {
+      e.preventDefault();
+      if (password !== confirmPassword) {
+        setError("Passwords do not match");
+        return;
+      }
+      createUserWithEmailAndPassword(auth, email, password).then(value => alert("success"));
+    };
+
+
     return (
       <div
         class=""
@@ -12,11 +32,17 @@ const AuthForm = () => {
         <form
           class="flex flex-col *:mb-4 *:p-2 *:rounded-lg *:border-2 *:border-[#EAE7DC]"
         >
-          <input type='email' placeholder='email id' />
+          <input onChange={(e) => setEmail(e.target.value)} value={email} type='email' required placeholder='email id' />
           <input type='text' placeholder='full name' />
-          <input type='password' placeholder='enter password' />
-          <input type='email' placeholder='confirm password' />
-          <button
+          <input onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='enter password' />
+          <input onChange={(e) => {
+            setConfirmPassword(e.target.value);
+            if (password === e.target.value) {
+              setError("");
+            }
+          }} value={confirmPassword} type='password' placeholder='confirm password' />
+          {error && <p class="text-red-500">{error}</p>}
+          <button onClick={createUser}
             class="text-center w-fit mb-1 bg-[#E98074] hover:bg-[#E85A4F] border-none rounded-xl">
             Sign Up
           </button>
@@ -36,14 +62,25 @@ const AuthForm = () => {
   };
 
   const SignInForm = () => {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+    const signinUser = (e) =>{
+      e.preventDefault();
+      signInWithEmailAndPassword(auth, email, password).then(value => alert("signin success")).catch(error => setError("invalid credentials"));
+    }
+
     return (
       <div>
         <form
           class="flex flex-col *:mb-4 *:p-2 *:rounded-lg *:border-2 *:border-[#EAE7DC]"
         >
-          <input type='email' placeholder='email id' />
-          <input type='password' placeholder='enter password' />
-          <button class="text-center w-fit mb-2 bg-[#E98074] hover:bg-[#E85A4F] border-none rounded-xl">Sign In</button>
+          <input onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email id' />
+          <input onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='enter password' />
+          {error && <p class="text-red-500">{error}</p>}
+          <button onClick={signinUser} class="text-center w-fit mb-2 bg-[#E98074] hover:bg-[#E85A4F] border-none rounded-xl">Sign In</button>
         </form>
         <div class='text-right mb-4 -mt-2'>
           <p>
@@ -54,6 +91,10 @@ const AuthForm = () => {
       </div>
     )
   };
+
+  const signupWithGoogle = () => {
+    signInWithPopup(auth, googleProvider)
+ };
 
   return (
     <div
@@ -79,7 +120,7 @@ const AuthForm = () => {
         {showSignIn === true ? <SignInForm /> : <SignUpForm />}
       </div>
       <div>
-        <button class="w-full flex flex-row justify-evenly p-2 rounded-lg border-2 border-[#8E8D8A]">
+        <button onClick={signupWithGoogle} class="w-full flex flex-row justify-evenly p-2 rounded-lg border-2 border-[#8E8D8A]">
           <p>Continue with Google</p>
           <img src={googleLogo} alt='Google logo' width="30px" height="auto" />
         </button>
