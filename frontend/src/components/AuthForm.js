@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import googleLogo from '../assets/google-logo.png'
 import app from '../firebase/firebase.js'
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
@@ -6,8 +7,9 @@ import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWith
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();  
 
-const AuthForm = () => {
+const AuthForm = ({setSignedIn}) => {
   const [showSignIn, setShowSignIn] = useState(true);
+  const navigate = useNavigate();
 
   const SignUpForm = () => {
     const [email, setEmail] = useState("");
@@ -21,7 +23,11 @@ const AuthForm = () => {
         setError("Passwords do not match");
         return;
       }
-      createUserWithEmailAndPassword(auth, email, password).then(value => alert("success"));
+      createUserWithEmailAndPassword(auth, email, password).then(value => {
+        alert("success");
+        setSignedIn(true);
+        navigate('/'); // Redirect to home page
+      });
     };
 
 
@@ -42,7 +48,7 @@ const AuthForm = () => {
             }
           }} value={confirmPassword} type='password' placeholder='confirm password' />
           {error && <p class="text-red-500">{error}</p>}
-          <button onClick={createUser}
+          <button onClick={createUser} type='submit'
             class="text-center w-fit mb-1 bg-[#E98074] hover:bg-[#E85A4F] border-none rounded-xl">
             Sign Up
           </button>
@@ -69,7 +75,11 @@ const AuthForm = () => {
 
     const signinUser = (e) =>{
       e.preventDefault();
-      signInWithEmailAndPassword(auth, email, password).then(value => alert("signin success")).catch(error => setError("invalid credentials"));
+      signInWithEmailAndPassword(auth, email, password).then(value => {
+        alert("signin success");
+        setSignedIn(true);
+        navigate('/'); // Redirect to home page
+      }).catch(error => setError("invalid credentials"));
     }
 
     return (
@@ -80,7 +90,7 @@ const AuthForm = () => {
           <input onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email id' />
           <input onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='enter password' />
           {error && <p class="text-red-500">{error}</p>}
-          <button onClick={signinUser} class="text-center w-fit mb-2 bg-[#E98074] hover:bg-[#E85A4F] border-none rounded-xl">Sign In</button>
+          <button onClick={signinUser} type='submit' class="text-center w-fit mb-2 bg-[#E98074] hover:bg-[#E85A4F] border-none rounded-xl">Sign In</button>
         </form>
         <div class='text-right mb-4 -mt-2'>
           <p>
@@ -94,6 +104,12 @@ const AuthForm = () => {
 
   const signupWithGoogle = () => {
     signInWithPopup(auth, googleProvider)
+    .then(result => {
+      // Handle successful sign-in
+      alert("Google sign-in successful");
+      setSignedIn(true);
+      navigate('/'); // Redirect to home page
+    })
  };
 
   return (
