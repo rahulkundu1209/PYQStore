@@ -5,6 +5,7 @@ import AllCourses from '../components/AllCourses';
 
 const Home = () => {
   const signedIn = false;
+
   return (
     <div 
       class="items-center justify-center flex flex-col"

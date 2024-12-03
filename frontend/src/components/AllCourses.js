@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const AllCourses = () => {
   const BtechCourses = ["CSE", "IT", "CSBS", "AIML", "CSDS", "IOT", "ECE", "EIE", "EE", "ME", "FT", "CE"]
@@ -16,12 +17,13 @@ const AllCourses = () => {
           <h3 className="text-md text-center font-semibold text-gray-700 mb-2">BTech</h3>
           <ul className="flex flex-wrap justify-evenly mb-4 border rounded-md py-6">
             {BtechCourses.map((course, index) => (
-              <li
+              <Link
+                to={`/course/${course}`}
                 key={index}
                 className="items-center justify-center text-center m-2 w-40 text-base md:text-lg bg-[#E98074] p-2 rounded-md hover:cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-200 hover:scale-95"
               >
                 {course}
-              </li>
+              </Link>
             ))}
           </ul>
         </div>
@@ -29,12 +31,13 @@ const AllCourses = () => {
           <h3 className="text-md text-center font-semibold text-gray-700 mb-2">Other UG Courses</h3>
           <ul className="flex flex-wrap justify-evenly mb-4 border rounded-md py-6">
             {OtherUGCourses.map((course, index) => (
-              <li
+              <Link
+                to={`/course/${course}`}
                 key={index}
                 className="items-center justify-center text-center m-2 w-40 text-base md:text-lg bg-[#E98074] p-2 rounded-md hover:cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-200 hover:scale-95"
               >
                 {course}
-              </li>
+              </Link>
             ))}
           </ul>
         </div>

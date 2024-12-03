@@ -4,9 +4,10 @@ import logo from '../assets/logo.png';
 import coin from '../assets/coin.png';
 import userIcon from '../assets/user.png';
 import UserFunctionsList from './UserFunctionsList';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
-  const signedIn = true;
+  const signedIn = false;
   const [showList, setShowList] = useState(false);
 
   return (
@@ -16,7 +17,9 @@ const NavBar = () => {
         class="flex justify-between ml-10 mr-10 mt-5"
       >
         <div>
-          <img src={logo} alt='PYQ Store' width="150px" height="auto" />
+          <Link to="/">
+            <img src={logo} alt='PYQ Store' width="150px" height="auto" />
+          </Link>
         </div>
         <div>
           <button class="font-bold text-2xl text-[#E98074] hover:text-[#E85A4F]">
@@ -34,11 +37,11 @@ const NavBar = () => {
                 <img src={coin} alt='coin' width="20px" height="20px" />
                 <h3 class="ml-2 font-bold text-xl">8</h3>
               </div>
-              <div 
-                onClick={()=>{setShowList(!showList)}}
+              <div
+                onClick={() => { setShowList(!showList) }}
               >
-                <img class="hover:cursor-pointer" src={userIcon} alt='user-image' width="40px" height="40px"  />
-                {showList && <UserFunctionsList/>}
+                <img class="hover:cursor-pointer" src={userIcon} alt='user-image' width="40px" height="40px" />
+                {showList && <UserFunctionsList />}
               </div>
             </div>
             : <button
