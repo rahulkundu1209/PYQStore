@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import googleLogo from '../assets/google-logo.png'
 import app from '../firebase/firebase.js'
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { useAuthContext } from '../App.js';
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();  
 
-const AuthForm = ({setSignedIn}) => {
+const AuthForm = () => {
+  const {signedIn, setSignedIn} = useAuthContext();
   const [showSignIn, setShowSignIn] = useState(true);
   const navigate = useNavigate();
 

@@ -5,9 +5,10 @@ import coin from '../assets/coin.png';
 import userIcon from '../assets/user.png';
 import UserFunctionsList from './UserFunctionsList';
 import { Link } from 'react-router-dom';
+import { useAuthContext } from '../App';
 
 const NavBar = () => {
-  const signedIn = false;
+  const {signedIn, setSignedIn} = useAuthContext();
   const [showList, setShowList] = useState(false);
 
   return (

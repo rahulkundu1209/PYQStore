@@ -1,11 +1,12 @@
-import React, {useState , useEffect} from 'react'
+import React, {useState , useEffect, useContext} from 'react'
 import HeroSection from '../components/HeroSection';
 import AuthSection from '../components/AuthSection';
 import AllCourses from '../components/AllCourses';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useAuthContext } from '../App';
 
 const Home = () => {
-  const [signedIn, setSignedIn] = useState(false);
+  const {signedIn, setSignedIn} = useAuthContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const Home = () => {
       class="items-center justify-center flex flex-col"
     >
       <div>
-        {signedIn ? <HeroSection /> : <AuthSection setSignedIn={setSignedIn} /> }
+        {signedIn ? <HeroSection /> : <AuthSection/> }
       </div>
         <div>
           <AllCourses />

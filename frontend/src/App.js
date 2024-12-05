@@ -2,6 +2,13 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import Home from './pages/Home';
 import Course from './pages/Course';
 import RootLayout from './pages/RootLayout';
+import { createContext, useContext, useState } from 'react';
+
+const AuthContext = createContext(null);
+
+export function useAuthContext() {
+  return useContext(AuthContext);
+}
 
 function App() {
   const router = createBrowserRouter([
@@ -18,9 +25,14 @@ function App() {
         }
       ]
     }
-  ])
+  ]);
+
+  const [signedIn, setSignedIn] = useState(false);
+
   return (
-    <RouterProvider router={router} />
+    <AuthContext.Provider value={{signedIn, setSignedIn}}>
+      <RouterProvider router={router} />
+    </AuthContext.Provider>
   );
 }
 

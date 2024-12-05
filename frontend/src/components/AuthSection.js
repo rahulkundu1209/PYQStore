@@ -2,7 +2,7 @@ import React from 'react'
 import WelcomeSection from './WelcomeSection'
 import AuthForm from './AuthForm'
 
-const AuthSection = ({ setSignedIn }) => {
+const AuthSection = () => {
   return (
     <div 
       class="
@@ -17,7 +17,7 @@ const AuthSection = ({ setSignedIn }) => {
       rounded-[40px]"
     >
         <WelcomeSection />
-        <AuthForm setSignedIn={setSignedIn} />
+        <AuthForm/>
     </div>
   )
 }
