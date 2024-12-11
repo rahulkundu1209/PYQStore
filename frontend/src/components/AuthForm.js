@@ -3,13 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import googleLogo from '../assets/google-logo.png'
 import app from '../firebase/firebase.js'
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
-import { useAuthContext } from '../App.js';
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();  
 
 const AuthForm = () => {
-  const {signedIn, setSignedIn} = useAuthContext();
   const [showSignIn, setShowSignIn] = useState(true);
   const navigate = useNavigate();
 
@@ -27,8 +25,9 @@ const AuthForm = () => {
       }
       createUserWithEmailAndPassword(auth, email, password).then(value => {
         alert("success");
-        setSignedIn(true);
-        navigate('/'); // Redirect to home page
+        setShowSignIn(true);
+      }).catch(error => {
+        alert(error.message);
       });
     };
 
@@ -79,8 +78,6 @@ const AuthForm = () => {
       e.preventDefault();
       signInWithEmailAndPassword(auth, email, password).then(value => {
         alert("signin success");
-        setSignedIn(true);
-        navigate('/'); // Redirect to home page
       }).catch(error => setError("invalid credentials"));
     }
 
@@ -109,10 +106,16 @@ const AuthForm = () => {
     .then(result => {
       // Handle successful sign-in
       alert("Google sign-in successful");
-      setSignedIn(true);
       navigate('/'); // Redirect to home page
     })
- };
+    .catch(error => {
+      if (error.code === 'auth/popup-closed-by-user') {
+        console.log("Popup closed by user");
+      } else {
+        console.error("Google sign-in error:", error);
+      }
+    });
+  };
 
   return (
     <div
